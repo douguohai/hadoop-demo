@@ -108,6 +108,7 @@ public class PersonInputFormat extends InputFormat<LongWritable, PersonInputForm
         private IntWritable age;
 
         public PersonWriteAble() {
+            this(new Text(),new IntWritable());
         }
 
         public PersonWriteAble(Text name, IntWritable age) {

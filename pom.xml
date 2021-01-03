@@ -75,7 +75,7 @@
                 <configuration>
                     <!-- 指定启动类 -->
 <!--                    <mainClass>org.example.WordCount</mainClass>-->
-                    <mainClass>org.example.PersonCount</mainClass>
+                    <mainClass>org.example.PersonCountPersonKey</mainClass>
                 </configuration>
                 <executions>
                     <execution>
