@@ -7,6 +7,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.example.inputFormat.PersonInputFormat;
 import org.example.outPutFormat.PersonOutPutFormat;
+import org.example.writeAble.PersonWriteAble;
 
 import java.io.IOException;
 
@@ -22,9 +23,9 @@ public class PersonCountOutPutFormat {
     /**
      * map
      */
-    public static class WordMapper extends Mapper<Object, PersonInputFormat.PersonWriteAble, PersonInputFormat.PersonWriteAble, IntWritable> {
+    public static class WordMapper extends Mapper<Object, PersonWriteAble, PersonWriteAble, IntWritable> {
         @Override
-        protected void map(Object key, PersonInputFormat.PersonWriteAble value, Context context) throws IOException, InterruptedException {
+        protected void map(Object key,PersonWriteAble value, Context context) throws IOException, InterruptedException {
             context.write(value, new IntWritable(1));
         }
     }
@@ -32,9 +33,9 @@ public class PersonCountOutPutFormat {
     /**
      * reduce
      */
-    public static class WordReducer extends Reducer<PersonInputFormat.PersonWriteAble, IntWritable, PersonInputFormat.PersonWriteAble, IntWritable> {
+    public static class WordReducer extends Reducer<PersonWriteAble, IntWritable, PersonWriteAble, IntWritable> {
         @Override
-        protected void reduce(PersonInputFormat.PersonWriteAble key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+        protected void reduce(PersonWriteAble key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
             for (IntWritable value : values) {
                 sum = sum + value.get();
@@ -55,7 +56,7 @@ public class PersonCountOutPutFormat {
         job.setMapperClass(PersonCountOutPutFormat.WordMapper.class);
         job.setReducerClass(PersonCountOutPutFormat.WordReducer.class);
 
-        job.setOutputKeyClass(PersonInputFormat.PersonWriteAble.class);
+        job.setOutputKeyClass(PersonWriteAble.class);
         job.setOutputValueClass(IntWritable.class);
 
 

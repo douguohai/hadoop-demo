@@ -1,10 +1,13 @@
 package org.example.inputFormat;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.apache.hadoop.io.*;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.*;
+import org.example.writeAble.PersonWriteAble;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -20,7 +23,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  * @author: tianwen
  * @create: 2021/1/2 15:14
  **/
-public class PersonInputFormat extends InputFormat<LongWritable, PersonInputFormat.PersonWriteAble> {
+public class PersonInputFormat extends InputFormat<LongWritable, PersonWriteAble> {
 
 
     @Override
@@ -97,46 +100,6 @@ public class PersonInputFormat extends InputFormat<LongWritable, PersonInputForm
                 personStack.clear();
             }
         };
-    }
-
-
-    @Data
-    @EqualsAndHashCode
-    @ToString
-    public static class PersonWriteAble implements WritableComparable<PersonWriteAble> {
-        private Text name;
-        private IntWritable age;
-
-        public PersonWriteAble() {
-            this(new Text(),new IntWritable());
-        }
-
-        public PersonWriteAble(Text name, IntWritable age) {
-            this.name = name;
-            this.age = age;
-        }
-
-        @Override
-        public void write(DataOutput dataOutput) throws IOException {
-            name.write(dataOutput);
-            age.write(dataOutput);
-        }
-
-        @Override
-        public void readFields(DataInput dataInput) throws IOException {
-            name.readFields(dataInput);
-            age.readFields(dataInput);
-
-        }
-
-        @Override
-        public int compareTo(PersonWriteAble o) {
-            int a = name.compareTo(o.getName());
-            if (a != 0) {
-                return a;
-            }
-            return age.compareTo(o.getAge());
-        }
     }
 
     @Data

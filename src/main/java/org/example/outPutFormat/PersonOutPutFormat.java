@@ -2,8 +2,8 @@ package org.example.outPutFormat;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.*;
-import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.example.inputFormat.PersonInputFormat;
+import org.example.writeAble.PersonWriteAble;
 
 import java.io.IOException;
 
@@ -13,14 +13,14 @@ import java.io.IOException;
  * @author: tianwen
  * @create: 2021/1/3 13:32
  **/
-public class PersonOutPutFormat extends OutputFormat<PersonInputFormat.PersonWriteAble, IntWritable> {
+public class PersonOutPutFormat extends OutputFormat<PersonWriteAble, IntWritable> {
 
     @Override
-    public RecordWriter<PersonInputFormat.PersonWriteAble, IntWritable> getRecordWriter(TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
-        return new RecordWriter<PersonInputFormat.PersonWriteAble, IntWritable>() {
+    public RecordWriter<PersonWriteAble, IntWritable> getRecordWriter(TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
+        return new RecordWriter<PersonWriteAble, IntWritable>() {
 
             @Override
-            public void write(PersonInputFormat.PersonWriteAble personWriteAble, IntWritable intWritable) throws IOException, InterruptedException {
+            public void write(PersonWriteAble personWriteAble, IntWritable intWritable) throws IOException, InterruptedException {
 
                 System.out.println("开始处理结果");
                 System.out.println("key: " + personWriteAble + " value:" + intWritable);

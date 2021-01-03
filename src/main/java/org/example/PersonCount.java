@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.example.inputFormat.PersonInputFormat;
+import org.example.writeAble.PersonWriteAble;
 
 import java.io.IOException;
 
@@ -24,9 +25,9 @@ public class PersonCount {
     /**
      * map
      */
-    public static class WordMapper extends Mapper<Object, PersonInputFormat.PersonWriteAble, Text, IntWritable> {
+    public static class WordMapper extends Mapper<Object, PersonWriteAble, Text, IntWritable> {
         @Override
-        protected void map(Object key, PersonInputFormat.PersonWriteAble value, Context context) throws IOException, InterruptedException {
+        protected void map(Object key, PersonWriteAble value, Context context) throws IOException, InterruptedException {
             context.write(new Text(value.getName()), new IntWritable(1));
         }
     }
