@@ -8,7 +8,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.example.inputFormat.MyInputFormat;
+import org.example.inputFormat.PersonInputFormat;
 
 import java.io.IOException;
 
@@ -24,9 +24,9 @@ public class PersonCount {
     /**
      * map
      */
-    public static class WordMapper extends Mapper<Object, MyInputFormat.Person, Text, IntWritable> {
+    public static class WordMapper extends Mapper<Object, PersonInputFormat.PersonWriteAble, Text, IntWritable> {
         @Override
-        protected void map(Object key, MyInputFormat.Person value, Context context) throws IOException, InterruptedException {
+        protected void map(Object key, PersonInputFormat.PersonWriteAble value, Context context) throws IOException, InterruptedException {
             context.write(new Text(value.getName()), new IntWritable(1));
         }
     }
@@ -50,7 +50,7 @@ public class PersonCount {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "person count");
 
-        job.setInputFormatClass(MyInputFormat.class);
+        job.setInputFormatClass(PersonInputFormat.class);
         job.setJarByClass(PersonCount.class);
 
 
