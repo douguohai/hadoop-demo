@@ -2,7 +2,6 @@ package org.example.outPutFormat;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.*;
-import org.example.inputFormat.PersonInputFormat;
 import org.example.writeAble.PersonWriteAble;
 
 import java.io.IOException;
